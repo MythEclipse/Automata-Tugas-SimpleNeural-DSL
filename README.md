@@ -13,6 +13,8 @@ SimpleNeural-DSL adalah Domain Specific Language (DSL) yang memungkinkan Anda me
 - **Production-Ready**: Menghasilkan kode Python yang clean dan teroptimasi
 - **Framework Support**: Support untuk TensorFlow/Keras
 - **CLI Tools**: Command-line interface yang lengkap
+- **Interactive UI**: Menu-driven interface untuk kemudahan penggunaan
+- **Kaggle Integration**: Download dan auto-generate DSL dari Kaggle datasets
 - **Error Messages**: Pesan error yang informatif dan actionable
 
 ## 📋 Requirements
@@ -45,7 +47,35 @@ simpleneural --version
 
 ## 💡 Quick Start
 
-### 1. Buat File DSL
+### Method 1: Interactive UI (Recommended)
+
+```bash
+# Launch interactive UI
+python ui.py
+```
+
+Features:
+- **Option 1-2**: Load DSL file or write code directly
+- **Option 3**: 🤖 Auto-generate DSL from Kaggle dataset (SMART!)
+- **Option 4**: 📥 Download dataset from Kaggle
+- **Option 5-9**: View, tokenize, parse, validate, compile
+- **Option A**: Compile and run directly
+
+### Method 2: With Kaggle Dataset
+
+```bash
+python ui.py
+# Choose option 3 (Auto-generate)
+# Select dataset (e.g., 1 for Iris)
+# DSL code auto-generated!
+# Choose option A (Compile & Run)
+```
+
+See [KAGGLE_QUICKSTART.md](KAGGLE_QUICKSTART.md) for full guide.
+
+### Method 3: Manual DSL File
+
+#### 1. Buat File DSL
 
 Buat file `model.sndsl`:
 
@@ -64,13 +94,13 @@ MODEL "HousePricePredictor" {
 }
 ```
 
-### 2. Compile ke Python
+#### 2. Compile ke Python
 
 ```bash
 simpleneural compile model.sndsl -o output.py
 ```
 
-### 3. Jalankan Model
+#### 3. Jalankan Model
 
 ```bash
 python output.py
@@ -125,6 +155,57 @@ relu, sigmoid, tanh, softmax, linear, selu, elu, swish, gelu
 ```plaintext
 adam, sgd, rmsprop, adagrad, adamw, nadam
 ```
+
+## 🌐 Kaggle Integration
+
+SimpleNeural-DSL mendukung download dan auto-generate DSL dari Kaggle datasets!
+
+### Quick Start
+
+```bash
+python ui.py
+# Option 3: Auto-generate DSL from Kaggle
+# Option 4: Download dataset only
+```
+
+### Features
+
+- **Auto-Download**: Download dataset langsung dari Kaggle
+- **Auto-Analyze**: Analisis dataset otomatis (task type, columns, classes)
+- **Auto-Generate**: Generate DSL code yang optimal
+- **Popular Datasets**: Quick access ke dataset populer (Iris, Titanic, dll)
+- **Custom Datasets**: Support untuk custom dataset path
+
+### Example Workflow
+
+```bash
+python ui.py
+
+# 1. Auto-generate (Option 3)
+Choose dataset: 1  # Iris
+Model name: IrisClassifier
+Target column: Species
+
+# 2. Auto-generated DSL:
+# - downloads/Iris.csv
+# - examples/auto_generated_irisclassifier.sndsl
+# - Ready to compile!
+
+# 3. Compile & Run (Option A)
+```
+
+See [KAGGLE_QUICKSTART.md](KAGGLE_QUICKSTART.md) for detailed guide.
+
+### Setup
+
+1. Install Kaggle CLI:
+   ```bash
+   pip install kaggle
+   ```
+
+2. Get API credentials from [kaggle.com/account](https://www.kaggle.com/account)
+
+3. UI will guide setup automatically!
 
 ## 🔧 CLI Commands
 
