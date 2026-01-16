@@ -29,10 +29,13 @@ class CodeGenerator:
         if ast.dataset:
             self.generate_dataset_loader(ast.dataset)
         
+        # Store model for later use
+        model_obj = None
         for model in ast.models:
             self.generate_model(model)
+            model_obj = model  # Keep reference to model
         
-        self.generate_main()
+        self.generate_main(model_obj)
         
         # Join all lines
         return '\n'.join(self.code_lines)
@@ -299,7 +302,7 @@ class CodeGenerator:
         
         # Generate training function
         if model.train_config:
-            self.generate_training_function(model.train_config)
+            self.generate_training_function(model.train_config, model.name)
     
     def generate_layer(self, layer: LayerNode, index: int) -> str:
         """Generate code for a single layer"""
@@ -367,7 +370,7 @@ class CodeGenerator:
         else:
             return f'tf.keras.optimizers.Adam(learning_rate={lr})'
     
-    def generate_training_function(self, train_config: TrainConfigNode):
+    def generate_training_function(self, train_config: TrainConfigNode, model_name: str):
         """Generate training function"""
         params = train_config.parameters
         
@@ -405,9 +408,13 @@ class CodeGenerator:
         self.emit('verbose=1')
         self.dedent()
         self.emit('),')
+        self.emit('# Ensure models directory exists')
+        self.emit('import os')
+        self.emit('os.makedirs("models", exist_ok=True)')
+        self.emit(f'model_checkpoint_path = f"models/{model_name.lower()}_best.keras"')
         self.emit('tf.keras.callbacks.ModelCheckpoint(')
         self.indent()
-        self.emit('"best_model.keras",')
+        self.emit('model_checkpoint_path,')
         self.emit('monitor="val_loss",')
         self.emit('save_best_only=True,')
         self.emit('verbose=0')
@@ -481,7 +488,7 @@ class CodeGenerator:
         self.emit()
         self.emit()
     
-    def generate_main(self):
+    def generate_main(self, model: ModelNode):
         """Generate main function"""
         self.emit('# ==================== MAIN ====================')
         self.emit('def main():')
@@ -518,9 +525,12 @@ class CodeGenerator:
         self.emit()
         
         self.emit('# Save model')
-        self.emit('model_path = "trained_model.keras"')
+        self.emit('import os')
+        self.emit('os.makedirs("models", exist_ok=True)')
+        self.emit(f'model_path = "models/{model.name.lower()}_final.keras"')
         self.emit('model.save(model_path)')
         self.emit('print(f"\\n[INFO] Model saved to: {model_path}")')
+        self.emit(f'print("[INFO] Best model saved to: models/{model.name.lower()}_best.keras")')
         self.emit()
         
         self.emit('print("\\n" + "=" * 60)')

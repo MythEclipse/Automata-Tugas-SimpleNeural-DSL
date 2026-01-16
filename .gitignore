@@ -76,7 +76,13 @@ test_*_output.py
 !simpleneural/**/*.py
 !examples/**/*.py
 
-# Model files
+# Trained model files
+models/*.keras
+models/*.h5
+!models/.gitkeep
+!models/README.md
+
+# Legacy model files (deprecated)
 *.keras
 *.h5
 *.pb
