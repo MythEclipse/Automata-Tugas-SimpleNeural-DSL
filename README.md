@@ -6,6 +6,22 @@
 
 Domain Specific Language untuk konfigurasi Machine Learning dengan sintaks sederhana dan deklaratif. Mengimplementasikan konsep teori automata dan kompilasi untuk menghasilkan kode Python yang production-ready.
 
+## 👥 Informasi Kelompok
+
+| No | Nama | NIM |
+|----|------|-----|
+| 1 | Asep Haryana Saputra | 20230810043 |
+| 2 | Muhammad Rizal Nurfirdaus | 20230810088 |
+| 3 | Rio Andika Andriansyah | 20230810155 |
+
+| Keterangan | Detail |
+|------------|--------|
+| Kelas | TINFC-2023-04 |
+| Mata Kuliah | Automata dan Teknik Kompilasi |
+| Dosen Pengampu | Sherly Gina Supratman, M.Kom. |
+
+---
+
 ## 🎯 Fitur
 
 - **Sintaks Sederhana** - Definisi model dengan bahasa yang mudah dipahami
@@ -260,11 +276,5 @@ simpleneural ast examples/deep_network.sndsl
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-SimpleNeural Team - Tugas Teori Automata & Bahasa Formal
-
----
 
 **SimpleNeural-DSL** - Making Machine Learning Configuration Simple and Type-Safe! 🚀
